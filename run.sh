@@ -5,6 +5,7 @@ python selftraining.py \
     --width 128 \
     --resume ./pretrained_models/dukemtmc_trained.pth.tar \
     --print-freq 20 \
-    --iteration 20 \
+    --iteration 30 \
     --logs-dir ./logs/duke2market/ \
     --gpu-devices 2,3 \
+    --num-split 2

@@ -384,7 +384,6 @@ if __name__ == '__main__':
     parser.add_argument('--num-split', type=int, default=1)
     parser.add_argument('--iteration', type=int, default=30)
     parser.add_argument('--no-rerank', action='store_true', help="train without rerank")
-    parser.add_argument('--dce-loss', action='store_true', help="train without rerank")
     # metric learning
     parser.add_argument('--dist-metric', type=str, default='euclidean',
                         choices=['euclidean', 'kissme'])

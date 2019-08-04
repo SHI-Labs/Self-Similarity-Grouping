@@ -14,7 +14,7 @@ dist/
 downloads/
 board/
 logs/
-data/
+./data
 eggs/
 .eggs/
 lib/
