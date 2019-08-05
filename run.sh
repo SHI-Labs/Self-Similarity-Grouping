@@ -7,5 +7,5 @@ python selftraining.py \
     --print-freq 20 \
     --iteration 30 \
     --logs-dir ./logs/duke2market/ \
-    --gpu-devices 2,3 \
+    --gpu-devices 0,1 \
     --num-split 2

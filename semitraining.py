@@ -434,7 +434,7 @@ if __name__ == '__main__':
     parser.add_argument('--iteration', type=int, default=30)
     parser.add_argument('--no-rerank', action='store_true', help="train without rerank")
     parser.add_argument('--dce-loss', action='store_true', help="train without rerank")
-    parser.add_argument('--sample', type=str, default='random', choices=['random', 'random_c', 'cluster', 'oneshot'])
+    parser.add_argument('--sample', type=str, default='cluster', choices=['random', 'cluster'])
     # metric learning
     parser.add_argument('--dist-metric', type=str, default='euclidean',
                         choices=['euclidean', 'kissme'])

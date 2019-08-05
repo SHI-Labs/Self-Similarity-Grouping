@@ -62,7 +62,7 @@ def re_ranking(input_feature_source,input_feature,k1=20,k2=6,lambda_value=0.2, M
         original_dist = np.power(original_dist,2).astype(np.float16)
     del feat    
     euclidean_dist = original_dist
-    if no:
+    if no_rerank:
         return euclidean_dist, None
     gallery_num = original_dist.shape[0] #gallery_num=all_num
     original_dist = np.transpose(original_dist/np.max(original_dist,axis = 0))

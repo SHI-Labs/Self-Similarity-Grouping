@@ -349,81 +349,6 @@ class EUG():
 """
     Get one-shot split for the input dataset.
 """
-def get_sample_data(dataset, load_path, num_select=1, sample='random', seed=0):
-    np.random.seed(seed)
-    random.seed(seed)
-    # if previous split exists, load it and return
-    if osp.exists(load_path):
-        with open(load_path, "rb") as fp:
-            dataset = pickle.load(fp)
-            label_dataset = dataset["label set"]
-            unlabel_dataset = dataset["unlabel set"]
-
-        print("  labeled  |   N/A | {:8d}".format(len(label_dataset)))
-        print("  unlabel  |   N/A | {:8d}".format(len(unlabel_dataset)))
-        print("\nLoad one-shot split from", load_path)
-        return label_dataset, unlabel_dataset
-    
-    print("Randomly Create new one-shot split and save it to", load_path)
-    label_dataset = []
-    unlabel_dataset = []
-    if sample == 'oneshot':
-        dataset_in_pid_cam = [[[] for _ in range(dataset.num_cams)] for _ in range(dataset.num_trainval_ids) ]
-        for index, (fname, pid, camid) in enumerate(dataset.trainval):
-            dataset_in_pid_cam[pid][camid].append([osp.join(dataset.images_dir, fname), pid, camid])
-        for pid, cams_data in enumerate(dataset_in_pid_cam):
-            num_c = 0
-            index = 0
-            while num_c < num_select:
-                for camid, img in enumerate(cams_data):
-                    if len(img) > index:
-                        selected_img = img[index]
-                        label_dataset.append(selected_img)
-                        num_c += 1
-                    if num_c >= num_select:
-                        break
-                index += 1
-        assert len(label_dataset) == dataset.num_trainval_ids * num_select
-        labeled_imgIDs = [fname for _, (fname, _, _) in enumerate(label_dataset)]
-    elif sample == 'random':
-        # dataset_in_pid = [ [] for _ in range(dataset.num_trainval_ids)]
-        # for _, (fname, pid, camid) in enumerate(dataset.trainval):
-        #     dataset_in_pid[pid].append([osp.join(dataset.images_dir, fname), pid, camid])
-        # for index, pid_data in enumerate(dataset_in_pid):
-        #     if index < num_select:
-        #         np.random.shuffle(pid_data)
-        #         label_dataset.append(pid_data[0])
-        dataset_in_pid_cam = [[[] for _ in range(dataset.num_cams)] for _ in range(dataset.num_trainval_ids) ]
-        for index, (fname, pid, camid) in enumerate(dataset.trainval):
-            dataset_in_pid_cam[pid][camid].append([osp.join(dataset.images_dir, fname), pid, camid])
-        for pid, cams_data in enumerate(dataset_in_pid_cam):
-            index = 0
-            if pid >= num_select:
-                break
-            for camid, img in enumerate(cams_data):
-                if len(img) > 0:
-                    selected_img = img[0]
-                    label_dataset.append(selected_img)
-                    break
-                else:
-                    continue
-
-        assert len(label_dataset) == num_select
-        labeled_imgIDs = [fname for _, (fname, _, _) in enumerate(label_dataset)]
-    
-    for (fname, pid, camid) in dataset.trainval:
-        fname = osp.join(dataset.images_dir, fname)
-        if fname not in labeled_imgIDs:
-            unlabel_dataset.append([fname, pid, camid])
-    
-    with open(load_path, "wb") as fp:
-        pickle.dump({"label set": label_dataset, "unlabel set":unlabel_dataset}, fp)
-    
-    print("  labeled    | N/A | {:8d}".format(len(label_dataset)))
-    print("  unlabeled  | N/A | {:8d}".format(len(unlabel_dataset)))
-    print("\nCreate new one-shot split, and save it to", load_path)
-    return label_dataset, unlabel_dataset
-
 def updata_lable(dataset, label, name, sample='random', load_path='random_split/', seed=0):
     np.random.seed(seed)
     random.seed(seed)
@@ -448,22 +373,6 @@ def updata_lable(dataset, label, name, sample='random', load_path='random_split/
         label_dataset = [[osp.join(dataset.images_dir, f), pid, camid] for  f, pid, camid in dataset.trainval]
         np.random.shuffle(label_dataset)
         label_dataset = label_dataset[:num_ids]
-        labeled_imgIDs = [fname for _, (fname, _, _) in enumerate(label_dataset)]
-        for (fname, pid, camid) in dataset.trainval:
-            fname = osp.join(dataset.images_dir, fname)
-            if fname not in labeled_imgIDs:
-                unlabel_dataset.append([fname, pid, camid])
-        print("  labeled    | N/A | {:8d}".format(len(label_dataset)))
-        print("  unlabeled  | N/A | {:8d}".format(len(unlabel_dataset)))
-    elif sample == 'random_c':
-        label_dataset = []
-        unlabel_dataset = []
-        num_ids = len(set(label)) - 1
-        dataset_in_cams = [[] for _ in dataset.num_cams]
-        for fname, pid, camid in dataset.trainval:
-            dataset_in_cams[camid].append([osp.join(dataset.images_dir, fname), pid, camid])
-        np.random.shuffle(dataset_in_cams[0])
-        label_dataset = dataset_in_cams[0][:num_ids]
         labeled_imgIDs = [fname for _, (fname, _, _) in enumerate(label_dataset)]
         for (fname, pid, camid) in dataset.trainval:
             fname = osp.join(dataset.images_dir, fname)

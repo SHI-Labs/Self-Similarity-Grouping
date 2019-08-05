@@ -118,9 +118,9 @@ def main(args):
     # Hacking here to let the classifier be the last feature embedding layer
     # Net structure: avgpool -> FC(2048) -> FC(args.features)
     if args.src_dataset == 'dukemtmc':
-        model = models.create(args.arch, num_classes=0, num_split=args.num_split, cluster=args.dce_loss) #duke
+        model = models.create(args.arch, num_classes=0, num_split=args.num_split) #duke
     elif args.src_dataset == 'market1501':
-        model = models.create(args.arch, num_classes=0, num_split=args.num_split, cluster=args.dce_loss)
+        model = models.create(args.arch, num_classes=0, num_split=args.num_split)
     else:
         raise RuntimeError('Please specify the number of classes (ids) of the network.')
     
