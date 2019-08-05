@@ -2,7 +2,7 @@
 Implementation of the paper [Self-similarity Grouping: A Simple Unsupervised Cross Domain Adaptation Approach for Person Re-identificatio](https://arxiv.org/abs/1807.11334), ICCV 2019 (Oral)
 
 
-The SSG approach proposed in the paper is simple yet effective and achieves the state-of-arts on three re-ID datasets: Market1501, DukdMTMC and MSMT.
+The SSG approach proposed in the paper is simple yet effective and achieves the state-of-arts on three re-ID datasets: Market1501, DukdMTMC and MSMT17.
 
 ![Illustration of the Self-similarity Grouping.](./figs/framework.png)
 
@@ -29,7 +29,7 @@ python source_train.py \
     --logs_dir <dir_to_save_source_trained_model>
 ```
 
-To replicate the results in the paper, you can download pre-trained models on Market1501 from [GoogleDrive](https://drive.google.com/open?id=1xNqduSroUMDbM_E5VeeR1WuykMh8Oxlb) and on DukeMTMC from [GoogleDrive](https://drive.google.com/file/d/1CFuf_vF9OphbuCyMefa3W8GA8tgcvSkI/view?usp=sharing). Our models are trained with __PyTorch 0.4.1__ or __PyTorch 1.0__.
+To replicate the results in the paper, you can download pre-trained models on Market1501, DukeMTMC and MSMT17 from [GoogleDrive](https://drive.google.com/file/d/1Z94qbsjuAQ9sLeEzURPstQxa3gluZIPJ/view?usp=sharing). And you can find all models after adaptation from [GoogleDrive](https://drive.google.com/file/d/1BUp1fbjKTZGjL8WGCx3yUp2GXD10EdxC/view?usp=sharing). Our models are trained with __PyTorch 0.4.1__ or __PyTorch 1.0__.
 
 ### Step 2: Run Self-similarity Grouping
 
@@ -68,10 +68,9 @@ python semitraining.py \
 
 | Source Dataset | Rank-1 | mAP |
 | :--- | :---: | :---: |
-| DukeMTMC | 80.8 | 65.4 |
-| Market1501 | 91.6 | 78.2 |
-| CUHK03 | 48.79 | 46.95 |
-| MSMT17 | 69.82| 42.48 |
+| DukeMTMC | 82.6 | 70.5 |
+| Market1501 | 92.5 | 80.8 |
+| MSMT17 | 73.6 | 48.6 |
 
 ### Step 2: After adaptation
 
@@ -80,42 +79,26 @@ python semitraining.py \
     <tr>
         <th rowspan="2">SRC --&gt; TGT</th>
         <th colspan="2">Before Adaptation</th>
-        <th colspan="2">After Adaptation</th>
-        <th rowspan="2">Settings</th>
+        <th colspan="2">Adaptation by SSG</th>
+        <th colspan="2">Adaptation by SSG++</th>
     </tr>
     <tr>
         <td>Rank-1</td>
         <td>mAP</td>
         <td>Rank-1</td>
         <td>mAP</td>
+        <td>Rank-1</td>
+        <td>mAP</td>
     </tr>
-    <tr><td>CUHK --&gt; Market</td><td>43.26</td><td>19.95</td><td>77.14</td><td>56.60</td><td>default</td></tr>
-    <tr><td>CUHK --&gt; DUKE</td><td>19.52</td><td>8.74</td><td>62.48</td><td>42.26</td><td>default</td></tr>
-    <tr><td>CUHK --&gt; MSMT</td><td>8.64</td><td>2.49</td><td>29.57</td><td>11.28</td><td>4GPU</td></tr>
-    <tr><td>Market --&gt; DUKE</td><td>27.3</td><td>11.9</td><td>68.4</td><td>49.0</td><td>default</td></tr>
-    <tr><td>Market --&gt; CUHK</td><td>4.07</td><td>4.53</td><td>20.32</td><td>20.85</td><td>default</td></tr>
-    <tr><td>Market --&gt; MSMT</td><td>8.37</td><td>2.54</td><td>30.54</td><td>12.04</td><td>4GPU, num_instances=8</td></tr>
-    <tr><td>DUKE --&gt; Market</td><td>46.8</td><td>19.1</td><td>75.8</td><td>53.7</td><td>default</td></tr>
-    <tr><td>DUKE --&gt; CUHK</td><td>4.43</td><td>4.56</td><td>9.89</td><td>10.32</td><td>default</td></tr>
-    <tr><td>DUKE --&gt; MSMT</td><td>12.38</td><td>3.82</td><td>39.22</td><td>15.99</td><td>4GPU, num_instances=8</td></tr>
-    <tr><td>MSMT --&gt; Market</td><td>49.47</td><td>23.71</td><td>80.94</td><td>59.97</td><td>4GPU</td></tr>
-    <tr><td>MSMT --&gt; DUKE</td><td>46.54</td><td>27.01</td><td>74.96</td><td>57.05</td><td>4GPU</td></tr>
-    <tr><td>MSMT --&gt; CUHK</td><td>10.71</td><td>11.59</td><td>16.21</td><td>16.56</td><td>4GPU</td></tr>
+    <tr><td>Market1501 --&gt; DukeMTMC</td><td>30.5</td><td>16.1</td><td>73.0</td><td>53.4</td><td>76.0</td><td>60.3</td></tr>
+    <tr><td>DukeMTMC --&gt; Market1501</td><td>54.6</td><td>26.6</td><td>80.0</td><td>58.3</td><td>86.2</td><td>68.7</td></tr>
+    <tr><td>Market1501 --&gt; MSMT17 </td><td>8.6</td><td>2.7</td><td>31.6</td><td>13.2</td><td>37.6</td><td>16.6</td></tr>
+    <tr><td>DukeMTMC --&gt; MSMT17 </td><td>12.38</td><td>3.82</td><td>32.2</td><td>13.3</td><td>41.6</td><td>18.3</td></tr>
+
+
 </table>
-
-## FAQ
-
-If you found difficulty in reproducing our reported results, please check the number of GPUs in your experiments. This may be caused by the un-sync BN layer implementation of PyTorch. Below we provide some training logs with the setting Duke --> Market, for helping you check your experiment settings.
-
-### With 2 GPU
-
-| Job ID | 24306 | 24307 | 24308 | 24309| 24310 |24311|
-| --- | :---: | :---: | :---: | :---: | :---: | :---: |
-|Rank 1| 75.1|75.7|77.5|76.1|77.5|77.3|
-
-[OneDrive Download Link](https://1drv.ms/u/s!AqzBcxT1FhwGjmrOVqAc80h3STAN)
 
 ## Acknowledgement
 
-Our code is based on [open-reid](https://github.com/Cysu/open-reid).
+Our code is based on [open-reid](https://github.com/Cysu/open-reid) and [DomainAdaptiveReID](https://github.com/LcDog/DomainAdaptiveReID).
 
