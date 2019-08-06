@@ -118,9 +118,9 @@ def main(args):
     # Hacking here to let the classifier be the last feature embedding layer
     # Net structure: avgpool -> FC(2048) -> FC(args.features)
     if args.src_dataset == 'dukemtmc':
-        model = models.create(args.arch, num_classes=0, num_split=args.num_split) #duke
+        model = models.create(args.arch, num_classes=0, num_split=args.num_split, cluster=args.dce_loss) #duke
     elif args.src_dataset == 'market1501':
-        model = models.create(args.arch, num_classes=0, num_split=args.num_split)
+        model = models.create(args.arch, num_classes=0, num_split=args.num_split, cluster=args.dce_loss)
     else:
         raise RuntimeError('Please specify the number of classes (ids) of the network.')
     
@@ -384,6 +384,7 @@ if __name__ == '__main__':
     parser.add_argument('--num-split', type=int, default=1)
     parser.add_argument('--iteration', type=int, default=30)
     parser.add_argument('--no-rerank', action='store_true', help="train without rerank")
+    parser.add_argument('--dce-loss', action='store_true', help="train without rerank")
     # metric learning
     parser.add_argument('--dist-metric', type=str, default='euclidean',
                         choices=['euclidean', 'kissme'])
