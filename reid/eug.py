@@ -307,24 +307,6 @@ class EUG():
 
         return new_train_data
 
-    def generate_new_train_data_with_weight(self, sel_idx, pred_y, weight):
-        """ generate the next training data """
-
-        seletcted_data = []
-        correct, total = 0, 0
-        for i, flag in enumerate(sel_idx):
-            if flag: # if selected
-                seletcted_data.append([self.u_data[i][0], int(pred_y[i]), weight[i]])
-                total += 1
-                if self.u_label[i] == int(pred_y[i]):
-                    correct += 1
-        acc = correct / total
-
-        new_train_data = self.l_data + seletcted_data
-        print("selected pseudo-labeled data: {} of {} is correct, accuracy: {:0.4f}  new train data: {}".format(
-                correct, len(seletcted_data), acc, len(new_train_data)))
-
-        return new_train_data
 
     def resume(self, ckpt_file, step):
         print("continued from step", step)
@@ -335,15 +317,6 @@ class EUG():
         # model.load_state_dict(load_checkpoint_new(ckpt_file), strict=False)
         self.model = nn.DataParallel(model).cuda()
         self.model_distill = nn.DataParallel(model_distill).cuda()
-
-    # def evaluate(self, query, gallery):
-    #     query_loader = self.get_dataloader(query, training=False)
-    #     gallery_loader = self.get_dataloader(gallery, training=False)
-    #     evaluator = Evaluator(self.model, print_freq=self.print_freq)
-    #     top1 = evaluator.evaluate(query_loader, gallery_loader, query, gallery)
-    #     return top1
-        # evaluator = Evaluator(self.model_distill)
-        # evaluator.evaluate(query_loader, gallery_loader, query, gallery, output_feature=self.output_feature)
 
 
 """
