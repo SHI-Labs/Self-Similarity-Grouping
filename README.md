@@ -29,7 +29,8 @@ python source_train.py \
     --logs_dir <dir_to_save_source_trained_model>
 ```
 
-To replicate the results in the paper, you can download pre-trained models on Market1501, DukeMTMC and MSMT17 from [GoogleDrive](https://drive.google.com/file/d/1Z94qbsjuAQ9sLeEzURPstQxa3gluZIPJ/view?usp=sharing). And you can find all models after adaptation from [GoogleDrive](https://drive.google.com/file/d/1BUp1fbjKTZGjL8WGCx3yUp2GXD10EdxC/view?usp=sharing). Our models can be trained with __PyTorch 0.4.1__ or __PyTorch 1.0__.
+To replicate the results in the paper, you can download pre-trained models on Market1501, DukeMTMC and MSMT17 from [GoogleDrive](https://drive.google.com/file/d/1Z94qbsjuAQ9sLeEzURPstQxa3gluZIPJ/view?usp=sharing). There maybe some bugs in source_train.py, please refer to [DomainAdaptiveReID](https://github.com/LcDog/DomainAdaptiveReID) to obtained the pretrained model or just use the pretrained model provided by us.
+And you can find all models after adaptation from [GoogleDrive](https://drive.google.com/file/d/1BUp1fbjKTZGjL8WGCx3yUp2GXD10EdxC/view?usp=sharing). Our models can be trained with __PyTorch 0.4.1__ or __PyTorch 1.0__.
 
 ### Step 2: Run Self-similarity Grouping
 
