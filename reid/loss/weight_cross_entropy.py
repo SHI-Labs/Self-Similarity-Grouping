@@ -18,7 +18,7 @@ class WeightCE(nn.Module):
         assert inputs.size(0) == w.size(0)
         loss = 0.
         for i in range(inputs.size(0)):
-            loss += w[i] * cross_entropy(inputs[i].unsqueeze(0), targets[i].unsqueeze(0))
+            loss += w[i] * self.cross_entropy(inputs[i].unsqueeze(0), targets[i].unsqueeze(0))
         loss /= inputs.size(0)
         return loss
 

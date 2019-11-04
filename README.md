@@ -98,6 +98,11 @@ python semitraining.py \
 
 </table>
 
+## Issues
+* The pre-trained model is trained with Pytorch 0.4.1, there may be some  error when loading it by Pytorch with higher version. This [link](https://github.com/CSAILVision/places365/issues/25#issuecomment-333871990) should be helpful
+* The source_training.py codes may have some bugs, I suggest you directly using our pretrained baseline model. And I will fix the bugs soon.
+* To reproduce results listed in paper, I recommend to use two GPUs with batch size of 32. And in general, the experimental results may have be a little different from the results listed in paper (+/-1%).
+
 ## Acknowledgement
 
 Our code is based on [open-reid](https://github.com/Cysu/open-reid) and [DomainAdaptiveReID](https://github.com/LcDog/DomainAdaptiveReID).
