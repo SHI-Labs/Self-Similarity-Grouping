@@ -108,3 +108,15 @@ python semitraining.py \
 
 Our code is based on [open-reid](https://github.com/Cysu/open-reid) and [DomainAdaptiveReID](https://github.com/LcDog/DomainAdaptiveReID).
 
+## Citation
+If you find the code helpful in your resarch or work, please cite the following paper.
+```
+@InProceedings{Fu_2019_ICCV,
+author = {Fu, Yang and Wei, Yunchao and Wang, Guanshuo and Zhou, Yuqian and Shi, Honghui and Huang, Thomas S.},
+title = {Self-Similarity Grouping: A Simple Unsupervised Cross Domain Adaptation Approach for Person Re-Identification},
+booktitle = {The IEEE International Conference on Computer Vision (ICCV)},
+month = {October},
+year = {2019}
+}
+```
+
